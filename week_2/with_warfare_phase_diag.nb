@@ -1,0 +1,3189 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    149132,       3181]
+NotebookOptionsPosition[    148327,       3159]
+NotebookOutlinePosition[    148716,       3175]
+CellTagsIndexPosition[    148673,       3172]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";"}], "  ", 
+  RowBox[{"(*", 
+   RowBox[{"Clear", " ", "all", " ", "variables"}], "*)"}], "\n", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Initialize", " ", "an", " ", "empty", " ", "list", " ", "to", " ", 
+    "store", " ", "results"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"results", "=", 
+    RowBox[{"{", "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Loop", " ", "over", " ", "the", " ", "parameter", " ", "space"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"k12", "=", "1"}], ",", 
+   RowBox[{"k12", "<=", "4"}], ",", 
+   RowBox[{"k12", "+=", "1"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"k21", "=", "1"}], ",", 
+     RowBox[{"k21", "<=", "4"}], ",", 
+     RowBox[{"k21", "+=", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"alpha12", "=", "0.01"}], ",", 
+       RowBox[{"alpha12", "<=", "0.1"}], ",", 
+       RowBox[{"alpha12", "+=", "0.02"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"alpha21", "=", "0.01"}], ",", 
+         RowBox[{"alpha21", "<=", "0.1"}], ",", 
+         RowBox[{"alpha21", "+=", "0.02"}], ",", "\[IndentingNewLine]", 
+         "\[IndentingNewLine]", 
+         RowBox[{"(*", 
+          RowBox[{"Update", " ", "kMatrix", " ", "and", " ", "alphaMatrix"}], 
+          "*)"}], "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"kMatrix", "=", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"5", ",", "k12"}], "}"}], ",", "\[IndentingNewLine]", 
+             "\t\t", 
+             RowBox[{"{", 
+              RowBox[{"k21", ",", "5"}], "}"}]}], "}"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"alphaMatrix", "=", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0.0", ",", "alpha12"}], "}"}], ",", 
+             "\[IndentingNewLine]", "\t\t\t", 
+             RowBox[{"{", 
+              RowBox[{"alpha21", ",", "0.0"}], "}"}]}], "}"}]}], ";", 
+          "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"parameters", "=", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"DN1", "->", "0.5"}], ",", 
+             RowBox[{"DN2", "->", "0.7"}], ",", 
+             RowBox[{"DR1", "->", "1.2"}], ",", 
+             RowBox[{"DR2", "->", "1"}], ",", 
+             RowBox[{"K", "->", "1"}], ",", 
+             RowBox[{"m1", "->", "0.1"}], ",", 
+             RowBox[{"m2", "->", "0.1"}], ",", 
+             RowBox[{"L", "->", "20"}], ",", 
+             RowBox[{"N10", "->", "1"}], ",", 
+             RowBox[{"N20", "->", "1"}], ",", 
+             RowBox[{"TOTALTIME", "->", "100"}], ",", 
+             RowBox[{"n", "->", "2"}], ",", 
+             RowBox[{"Y1", "->", "4"}], ",", 
+             RowBox[{"Y2", "->", "1"}]}], "}"}]}], ";", "\[IndentingNewLine]",
+           "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Define", " ", "g", " ", "and", " ", "f", " ", "functions", " ", 
+            "for", " ", "each", " ", "species", " ", "i", " ", "and", " ", 
+            "resource", " ", "j"}], "*)"}], "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"i_", ",", "j_", ",", "R_", ",", "Y_"}], "]"}], ":=", 
+           RowBox[{"Y", " ", 
+            RowBox[{"kMatrix", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "j"}], "]"}], "]"}], " ", "R"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"f", "[", 
+            RowBox[{"i_", ",", "j_", ",", "N_", ",", "R_"}], "]"}], ":=", 
+           RowBox[{
+            RowBox[{"kMatrix", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "j"}], "]"}], "]"}], " ", "N", " ", "R"}]}], 
+          ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Define", " ", "the", " ", "initial", " ", "conditions", " ", 
+            "with", " ", "C1", " ", "and", " ", "C2"}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"R1Init", "[", 
+            RowBox[{"x_", ",", "C1_"}], "]"}], ":=", 
+           RowBox[{
+            RowBox[{"C1", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1", "-", 
+                RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}], "/.", " ", 
+            "parameters"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"R2Init", "[", 
+            RowBox[{"x_", ",", "C2_"}], "]"}], ":=", 
+           RowBox[{
+            RowBox[{"C2", " ", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"1", "-", 
+                RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}], "/.", " ", 
+            "parameters"}]}], ";", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "Take", " ", "the", " ", "derivatives", " ", "at", " ", "x"}], 
+            "=", 
+            RowBox[{
+             RowBox[{"0", " ", "and", " ", "x"}], "=", "L"}]}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"dR1Init0", "[", "C1_", "]"}], "=", 
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{
+              RowBox[{"R1Init", "[", 
+               RowBox[{"x", ",", "C1"}], "]"}], ",", "x"}], "]"}], "/.", " ", 
+            
+            RowBox[{"x", "->", "0"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"dR2Init0", "[", "C2_", "]"}], "=", 
+           RowBox[{
+            RowBox[{"D", "[", 
+             RowBox[{
+              RowBox[{"R2Init", "[", 
+               RowBox[{"x", ",", "C2"}], "]"}], ",", "x"}], "]"}], "/.", " ", 
+            
+            RowBox[{"x", "->", "0"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"dR1InitL", "[", "C1_", "]"}], "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"D", "[", 
+              RowBox[{
+               RowBox[{"R1Init", "[", 
+                RowBox[{"x", ",", "C1"}], "]"}], ",", "x"}], "]"}], "/.", " ", 
+             RowBox[{"x", "->", "L"}]}], "/.", " ", "parameters"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"dR2InitL", "[", "C2_", "]"}], "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"D", "[", 
+              RowBox[{
+               RowBox[{"R2Init", "[", 
+                RowBox[{"x", ",", "C2"}], "]"}], ",", "x"}], "]"}], "/.", " ", 
+             RowBox[{"x", "->", "L"}]}], "/.", " ", "parameters"}]}], ";", 
+          "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "Solve", " ", "for", " ", "C1", " ", "and", " ", "C2", " ", 
+             "self"}], "-", "consistently"}], "*)"}], "\[IndentingNewLine]", 
+          RowBox[{"eq1", "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"dR1Init0", "[", "C1", "]"}], "==", 
+             RowBox[{"K", "-", 
+              RowBox[{"f", "[", 
+               RowBox[{"1", ",", "1", ",", "N10", ",", 
+                RowBox[{"R1Init", "[", 
+                 RowBox[{"0", ",", "C1"}], "]"}]}], "]"}], "-", 
+              RowBox[{"f", "[", 
+               RowBox[{"2", ",", "1", ",", "N20", ",", 
+                RowBox[{"R1Init", "[", 
+                 RowBox[{"0", ",", "C1"}], "]"}]}], "]"}]}]}], "/.", " ", 
+            "parameters"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"eq2", "=", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"dR2Init0", "[", "C2", "]"}], "==", 
+             RowBox[{"K", "-", 
+              RowBox[{"f", "[", 
+               RowBox[{"1", ",", "2", ",", "N10", ",", 
+                RowBox[{"R2Init", "[", 
+                 RowBox[{"0", ",", "C2"}], "]"}]}], "]"}], "-", 
+              RowBox[{"f", "[", 
+               RowBox[{"2", ",", "2", ",", "N20", ",", 
+                RowBox[{"R2Init", "[", 
+                 RowBox[{"0", ",", "C2"}], "]"}]}], "]"}]}]}], "/.", " ", 
+            "parameters"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"eq3", "=", 
+           RowBox[{
+            RowBox[{"dR1InitL", "[", "C1", "]"}], "==", "0"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"eq4", "=", 
+           RowBox[{
+            RowBox[{"dR2InitL", "[", "C2", "]"}], "==", "0"}]}], ";", 
+          "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"sol", "=", 
+           RowBox[{"Solve", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"eq1", ",", "eq2", ",", "eq3", ",", "eq4"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"C1", ",", "C2"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"C1sol", "=", 
+           RowBox[{"C1", "/.", " ", 
+            RowBox[{"First", "[", "sol", "]"}]}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"C2sol", "=", 
+           RowBox[{"C2", "/.", " ", 
+            RowBox[{"First", "[", "sol", "]"}]}]}], ";", 
+          "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Define", " ", "the", " ", "PDE", " ", "system", " ", "with", " ", 
+            "new", " ", "terms"}], "*)"}], 
+          RowBox[{"PDEs", "=", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"D", "[", 
+                RowBox[{
+                 RowBox[{"N1", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], ",", "t"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"DN1", " ", 
+                 RowBox[{"Laplacian", "[", 
+                  RowBox[{
+                   RowBox[{"N1", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", 
+                   RowBox[{"{", "x", "}"}]}], "]"}]}], "+", 
+                RowBox[{
+                 RowBox[{"N1", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"g", "[", 
+                    RowBox[{"1", ",", "1", ",", 
+                    RowBox[{"R1", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", "Y1"}], "]"}], "+", 
+                   RowBox[{"g", "[", 
+                    RowBox[{"1", ",", "2", ",", 
+                    RowBox[{"R2", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", "Y2"}], "]"}], "-", 
+                   "m1"}], ")"}]}], "-", 
+                RowBox[{
+                 RowBox[{"N1", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"alphaMatrix", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "2"}], "]"}], "]"}], " ", 
+                   RowBox[{"N2", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}]}], ")"}]}]}]}], ",", 
+              RowBox[{
+               RowBox[{"D", "[", 
+                RowBox[{
+                 RowBox[{"N2", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], ",", "t"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"DN2", " ", 
+                 RowBox[{"Laplacian", "[", 
+                  RowBox[{
+                   RowBox[{"N2", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", 
+                   RowBox[{"{", "x", "}"}]}], "]"}]}], "+", 
+                RowBox[{
+                 RowBox[{"N2", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"g", "[", 
+                    RowBox[{"2", ",", "1", ",", 
+                    RowBox[{"R1", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", "Y1"}], "]"}], "+", 
+                   RowBox[{"g", "[", 
+                    RowBox[{"2", ",", "2", ",", 
+                    RowBox[{"R2", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", "Y2"}], "]"}], "-", 
+                   "m2"}], ")"}]}], "-", 
+                RowBox[{
+                 RowBox[{"N2", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], " ", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"alphaMatrix", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}], " ", 
+                   RowBox[{"N1", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}]}], ")"}]}]}]}], ",", 
+              RowBox[{
+               RowBox[{"D", "[", 
+                RowBox[{
+                 RowBox[{"R1", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], ",", "t"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"DR1", " ", 
+                 RowBox[{"Laplacian", "[", 
+                  RowBox[{
+                   RowBox[{"R1", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", 
+                   RowBox[{"{", "x", "}"}]}], "]"}]}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"1", ",", "1", ",", 
+                  RowBox[{"N1", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}], ",", 
+                  RowBox[{"R1", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}]}], "]"}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "1", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}], ",", 
+                  RowBox[{"R1", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}]}], "]"}]}]}], ",", 
+              RowBox[{
+               RowBox[{"D", "[", 
+                RowBox[{
+                 RowBox[{"R2", "[", 
+                  RowBox[{"t", ",", "x"}], "]"}], ",", "t"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"DR2", " ", 
+                 RowBox[{"Laplacian", "[", 
+                  RowBox[{
+                   RowBox[{"R2", "[", 
+                    RowBox[{"t", ",", "x"}], "]"}], ",", 
+                   RowBox[{"{", "x", "}"}]}], "]"}]}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"1", ",", "2", ",", 
+                  RowBox[{"N1", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}], ",", 
+                  RowBox[{"R2", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}]}], "]"}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "2", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}], ",", 
+                  RowBox[{"R2", "[", 
+                   RowBox[{"t", ",", "x"}], "]"}]}], "]"}]}]}]}], "}"}], "/.",
+             " ", "parameters"}]}], ";", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Modified", " ", "Neumann", " ", "boundary", " ", "conditions"}], 
+           "*)"}], 
+          RowBox[{"bc", "=", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "N1", "]"}], "[", 
+                RowBox[{"t", ",", "0"}], "]"}], "==", "0"}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "N1", "]"}], "[", 
+                RowBox[{"t", ",", "L"}], "]"}], "==", "0"}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "N2", "]"}], "[", 
+                RowBox[{"t", ",", "0"}], "]"}], "==", "0"}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "N2", "]"}], "[", 
+                RowBox[{"t", ",", "L"}], "]"}], "==", "0"}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "R1", "]"}], "[", 
+                RowBox[{"t", ",", "0"}], "]"}], "==", 
+               RowBox[{"K", "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"1", ",", "1", ",", 
+                  RowBox[{"N1", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}], ",", 
+                  RowBox[{"R1", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}]}], "]"}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "1", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}], ",", 
+                  RowBox[{"R1", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}]}], "]"}]}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "R1", "]"}], "[", 
+                RowBox[{"t", ",", "L"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"-", 
+                 RowBox[{"f", "[", 
+                  RowBox[{"1", ",", "1", ",", 
+                   RowBox[{"N1", "[", 
+                    RowBox[{"t", ",", "L"}], "]"}], ",", 
+                   RowBox[{"R1", "[", 
+                    RowBox[{"t", ",", "L"}], "]"}]}], "]"}]}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "1", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "L"}], "]"}], ",", 
+                  RowBox[{"R1", "[", 
+                   RowBox[{"t", ",", "L"}], "]"}]}], "]"}]}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "R2", "]"}], "[", 
+                RowBox[{"t", ",", "0"}], "]"}], "==", 
+               RowBox[{"K", "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"1", ",", "2", ",", 
+                  RowBox[{"N1", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}], ",", 
+                  RowBox[{"R2", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}]}], "]"}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "2", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}], ",", 
+                  RowBox[{"R2", "[", 
+                   RowBox[{"t", ",", "0"}], "]"}]}], "]"}]}]}], ",", 
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{"Derivative", "[", 
+                  RowBox[{"0", ",", "1"}], "]"}], "[", "R2", "]"}], "[", 
+                RowBox[{"t", ",", "L"}], "]"}], "==", 
+               RowBox[{
+                RowBox[{"-", 
+                 RowBox[{"f", "[", 
+                  RowBox[{"1", ",", "2", ",", 
+                   RowBox[{"N1", "[", 
+                    RowBox[{"t", ",", "L"}], "]"}], ",", 
+                   RowBox[{"R2", "[", 
+                    RowBox[{"t", ",", "L"}], "]"}]}], "]"}]}], "-", 
+                RowBox[{"f", "[", 
+                 RowBox[{"2", ",", "2", ",", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"t", ",", "L"}], "]"}], ",", 
+                  RowBox[{"R2", "[", 
+                   RowBox[{"t", ",", "L"}], "]"}]}], "]"}]}]}]}], "}"}], "/.",
+             " ", "parameters"}]}], ";", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Initial", " ", "conditions", " ", "with", " ", "solved", " ", 
+            "C1sol", " ", "and", " ", "C2sol"}], "*)"}], 
+          RowBox[{"ic", "=", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"N1", "[", 
+                RowBox[{"0", ",", "x"}], "]"}], "==", "N10"}], "/.", " ", 
+              "parameters"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"N2", "[", 
+                RowBox[{"0", ",", "x"}], "]"}], "==", "N20"}], "/.", " ", 
+              "parameters"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"R1", "[", 
+                RowBox[{"0", ",", "x"}], "]"}], "==", 
+               RowBox[{"C1sol", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}]}], "/.", 
+              " ", "parameters"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"R2", "[", 
+                RowBox[{"0", ",", "x"}], "]"}], "==", 
+               RowBox[{"C2sol", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"1", "-", 
+                   RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}]}], "/.", 
+              " ", "parameters"}]}], "}"}]}], ";", "\[IndentingNewLine]", 
+          "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Solve", " ", "the", " ", "PDE", " ", "system", " ", 
+            "numerically"}], "*)"}], "\[IndentingNewLine]", 
+          RowBox[{"solution", "=", 
+           RowBox[{"NDSolve", "[", 
+            RowBox[{
+             RowBox[{"Join", "[", 
+              RowBox[{"PDEs", ",", "bc", ",", "ic"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"N1", ",", "N2", ",", "R1", ",", "R2"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"t", ",", "0", ",", 
+               RowBox[{"TOTALTIME", "/.", " ", "parameters"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "0", ",", 
+               RowBox[{"L", "/.", " ", "parameters"}]}], "}"}]}], "]"}]}], 
+          ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "Calculate", " ", "the", " ", "local", " ", "regions", " ", 
+             "where", " ", "N1", " ", "or", " ", "N2", " ", "is", " ", 
+             "dominant", " ", "at", " ", "t"}], "=", "TOTALTIME"}], "*)"}], 
+          RowBox[{"localDominance", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"N1", "[", 
+                   RowBox[{"TOTALTIME", ",", "x"}], "]"}], ">", 
+                  RowBox[{"N2", "[", 
+                   RowBox[{"TOTALTIME", ",", "x"}], "]"}]}], ",", "1", ",", 
+                 "0"}], "]"}], "/.", "parameters"}], "/.", " ", 
+              RowBox[{"First", "[", "solution", "]"}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"x", ",", "0", ",", 
+               RowBox[{"L", "/.", " ", "parameters"}], ",", "1"}], "}"}]}], 
+            "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+           "Calculate", " ", "the", " ", "fraction", " ", "of", " ", "length",
+             " ", "where", " ", "N1", " ", "is", " ", "dominant"}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{"fractionN1Dominant", "=", 
+           RowBox[{
+            RowBox[{"Total", "[", "localDominance", "]"}], "/", 
+            RowBox[{"Length", "[", "localDominance", "]"}]}]}], ";", 
+          "\[IndentingNewLine]", "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{"Store", " ", "the", " ", "result"}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"results", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"k12", "/", "k21"}], ",", 
+              RowBox[{"alpha21", "/", "alpha12"}], ",", 
+              "fractionN1Dominant"}], "}"}]}], "]"}], ";"}]}], 
+        "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], "Input",
+ CellChangeTimes->{{3.906464513016409*^9, 3.906464513018725*^9}, 
+   3.906464648608123*^9, 3.9064646814159727`*^9, {3.906510110012967*^9, 
+   3.906510125188425*^9}, {3.906510202055028*^9, 3.906510202326399*^9}, {
+   3.906510621899329*^9, 3.906510680589795*^9}, {3.906510718847928*^9, 
+   3.906510723550703*^9}, {3.906510830288762*^9, 3.906511029305978*^9}, {
+   3.906511251973297*^9, 3.90651139268244*^9}, {3.906511464221891*^9, 
+   3.906511517244567*^9}, 3.906799718843841*^9, {3.9067998748466673`*^9, 
+   3.906799875500448*^9}, {3.9068010445327*^9, 3.906801044577508*^9}, {
+   3.9068938727169333`*^9, 3.9068938849768257`*^9}, {3.906893920324294*^9, 
+   3.906893970201429*^9}, {3.906894118654872*^9, 3.906894134398539*^9}, {
+   3.9068941819476433`*^9, 3.90689421464148*^9}, {3.906894415998156*^9, 
+   3.9068944202589293`*^9}, {3.906894517380459*^9, 3.906894621834341*^9}, {
+   3.907041011495685*^9, 3.907041042776373*^9}, {3.907041101530789*^9, 
+   3.907041129375647*^9}, {3.907043333737668*^9, 3.907043425822508*^9}, {
+   3.907043495611681*^9, 3.907043624146735*^9}, {3.907130704121052*^9, 
+   3.90713079357901*^9}, {3.9071308431533537`*^9, 3.9071310373808517`*^9}, {
+   3.90713108167308*^9, 3.9071311459305563`*^9}, {3.907131387444949*^9, 
+   3.907131388315098*^9}, {3.907131423627923*^9, 3.9071314957235727`*^9}, {
+   3.9072854917490187`*^9, 3.907285623822448*^9}, {3.9072904994572363`*^9, 
+   3.907290612847043*^9}, {3.907290692608427*^9, 3.907290696317174*^9}, {
+   3.907290798705114*^9, 3.9072908010900106`*^9}, {3.907290833091914*^9, 
+   3.9072908510346403`*^9}, {3.907290930341214*^9, 3.907290931337061*^9}, {
+   3.907290974308316*^9, 3.907290974986916*^9}, 3.907291005233186*^9, {
+   3.907291694333453*^9, 3.907291696276732*^9}},
+ CellLabel->
+  "In[221]:=",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.907290978605256*^9, 3.9072911905488358`*^9}, {
+   3.907291364522007*^9, 3.9072913776549187`*^9}, 
+   3.907291712926778*^9},ExpressionUUID->"c823d237-485d-41be-a764-\
+e19d03203786"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{
+     GraphicsBox[
+      GraphicsComplexBox[CompressedData["
+1:eJztl7FqFUEYhSe3mnKK25nGoE9gY5dpbSXxAQS1EsmLiKTTRxBrbaxsgiAy
+jZXNSBiZTgtXBhE0e2/+uZxvuHVS3GFhOJA9u3u/nD3733z47P6jhXPuxZ5z
+875ePw+5Pzie15euX72c18euT2/duzg+dH3j7GT/7OQ9fHzc5n9ntc67/vr2
+6Xx0fYTrr/dl93vzel5/Bl/b363svnc9393+2beu91b7PvwWXT95PK/fW/3v
+Pj+/OCr8DqLqzfN//jSvv/3vb88/3+mvrv+t1o9LnXG9DB4ZPDJ4ZPDI4DH6
+K48MHhk8Mnhk8Bj9lUcGjwweGTwyeIz+yiODRwaPDB4ZPHLncYz/Q9PGw7Tx
+MG08TBsP9fNxm7/xMG08TBsPPX/Z/YzHNn/jYdp4mDYe6rfo2nhs8zce6ncQ
+VW+e33iYNh6mNR8J/BPykZCPhHwk5CMhH6O/5iMhHwn5SMhHQj5Gf81HQj4S
+8pGQj4R8jP6aj4R8JOQjIR8J+Ujg4aJez0Xl4aLycFF5uKg8zM/uZ/RXHi4q
+DxePcP31ZjxcVB6jv/JwUXm4qDzMb9G18hj9lYf5HUTVm+dXHi4qDxeVx67P
+r0ufr99fBe/Hgv4o6I+C/ijoj9J5bPPX/ijoj4L+KJ2Hae2P0V/7o6A/Cvqj
+oD8K+mP01/4o6I+C/ijoj4L+KLvvq0se6rfo+qq+r/R327xnlIdHf3j0h0d/
+mB/3jb/y8OgPj/6w85fdT3mM/srDoz88+sOjPzz6Y/RXHh794dEfHv3h0R8e
+/dHAvyEfDfloyEdDPhqeY/RXHg35aMiHnb/sfspj9FceDfloyEdDPhryMfor
+j4Z8NOSjIR8N+WiHuz6f1/Xr87WuuF4FjwoeFTwqeFTwGP2VRwWPCh4VPCp4
+jP7Ko4JHBY8KHhU8Rn/lUcGjgkcFjwoeFTxC1OsF9EdAfwT0R0B/mJ/dz+iv
+PAL6I6A/7Pxl91Meo7/yCOiPgP4I6I+A/hj9lUdAfwT0R0B/BPRHQH/s5sHr
+Mg+uv3+nnkfTOn9MmD8mzB8T5g/zs+/v0V/njwnzx4T5w85fdj+dP0Z/nT8m
+zB8T5o8J88eE+WP01/ljwvwxYf6YMH9MmD+mXZ9f8lC/RddX1ef/AfDArRY=
+
+       "], {{{
+          EdgeForm[], 
+          GrayLevel[0.8], 
+          GraphicsGroupBox[{
+            PolygonBox[CompressedData["
+1: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
+
+             "]]}]}, {}, {}, {}, {}}}, VertexColors -> {
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.893085371302577, 0.056778004648400215`, 0.4149057985371798], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7430940102371307, 0.26249554213689397`, 0.4781789054149535], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.893085371302577, 0.056778004648400215`, 0.4149057985371798], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.807335653128283, 0.1607715943791498, 0.5361769832735732], 
+         
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.6455001304209563, 0.3919447067107032, 0.3868641018322946], 
+         LABColor[
+         0.9204894166759601, 0.027512622727691033`, 0.35134114790012383`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.35118470910426086`, 0.2453332943303944, -0.17341624095721286`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.3911979621490215, 0.29715070854832815`, -0.05602643070325658], 
+         LABColor[0.807335653128283, 0.1607715943791498, 0.5361769832735732], 
+         
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[
+         0.9204894166759601, 0.027512622727691033`, 0.35134114790012383`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[0.6455001304209563, 0.3919447067107032, 0.3868641018322946], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7752148316827068, 0.21163356825802193`, 0.5071779443442633], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7109731887915546, 0.3133575160157661, 0.44917986648564356`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.35118470910426086`, 0.2453332943303944, -0.17341624095721286`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119]}], {
+      DisplayFunction -> Identity, AspectRatio -> 1, 
+       AxesOrigin -> {Automatic, Automatic}, DisplayFunction :> Identity, 
+       Frame -> True, FrameLabel -> {None, None}, 
+       FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
+       GridLines -> {None, None}, GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], 
+       Method -> {
+        "DefaultBoundaryStyle" -> Automatic, "DefaultColorFunction" -> 
+         "WL13DefaultDensityGradient", 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "GridLinesInFront" -> True}, PlotLabel -> 
+       FormBox["\"fraction of length where species 1 dominates\"", 
+         TraditionalForm], 
+       PlotRange -> {{0.25, 4.}, {0.11111111111111109`, 9.000000000000002}}, 
+       PlotRangeClipping -> True, PlotRangePadding -> {{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.02]}}, Ticks -> {Automatic, Automatic}}], 
+     FormBox[
+      FormBox[
+       TemplateBox[{
+         FormBox[
+          StyleBox[
+           StyleBox[
+            PaneBox[
+             GraphicsBox[{
+               RasterBox[CompressedData["
+1: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
+PyHA/wBtF2Z2
+                "], {{
+                  Rational[-15, 2], 
+                  Rational[-225, 2]}, {
+                  Rational[15, 2], 
+                  Rational[225, 2]}}], {Antialiasing -> False, 
+                AbsoluteThickness[0.1], 
+                Directive[
+                 Opacity[0.3], 
+                 GrayLevel[0]], 
+                LineBox[
+                 NCache[{{
+                    Rational[15, 2], 
+                    Rational[-225, 2]}, {
+                    Rational[-15, 2], 
+                    Rational[-225, 2]}, {
+                    Rational[-15, 2], 
+                    Rational[225, 2]}, {
+                    Rational[15, 2], 
+                    Rational[225, 2]}, {
+                    Rational[15, 2], 
+                    Rational[-225, 2]}}, {{
+                  7.5, -112.5}, {-7.5, -112.5}, {-7.5, 112.5}, {7.5, 112.5}, {
+                  7.5, -112.5}}]]}, {
+                CapForm[None], {}}, 
+               StyleBox[{Antialiasing -> False, 
+                 StyleBox[
+                  LineBox[{{7.5, -112.5}, {7.5, 112.5}}], {
+                   Directive[
+                    AbsoluteThickness[0.2], 
+                    Opacity[0.3], 
+                    GrayLevel[0]]}, StripOnInput -> False], 
+                 StyleBox[
+                  StyleBox[{{
+                    StyleBox[
+                    LineBox[{{{7.5, -112.5}, 
+                    Offset[{4., 0}, {7.5, -112.5}]}, {{7.5, -67.5}, 
+                    Offset[{4., 0}, {7.5, -67.5}]}, {{7.5, -22.5}, 
+                    Offset[{4., 0}, {7.5, -22.5}]}, {{7.5, 22.5}, 
+                    Offset[{4., 0}, {7.5, 22.5}]}, {{7.5, 67.5}, 
+                    Offset[{4., 0}, {7.5, 67.5}]}, {{7.5, 112.5}, 
+                    Offset[{4., 0}, {7.5, 112.5}]}}], {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]]}, StripOnInput -> False], 
+                    StyleBox[
+                    LineBox[{{{7.5, -101.25}, 
+                    Offset[{2.5, 0.}, {7.5, -101.25}]}, {{7.5, -90.}, 
+                    Offset[{2.5, 0.}, {7.5, -90.}]}, {{7.5, -78.75}, 
+                    Offset[{2.5, 0.}, {7.5, -78.75}]}, {{7.5, -56.25}, 
+                    Offset[{2.5, 0.}, {7.5, -56.25}]}, {{7.5, -45.}, 
+                    Offset[{2.5, 0.}, {7.5, -45.}]}, {{7.5, -33.75}, 
+                    Offset[{2.5, 0.}, {7.5, -33.75}]}, {{7.5, -11.25}, 
+                    Offset[{2.5, 0.}, {7.5, -11.25}]}, {{7.5, 0.}, 
+                    Offset[{2.5, 0.}, {7.5, 0.}]}, {{7.5, 
+                    11.250000000000014`}, 
+                    Offset[{2.5, 0.}, {7.5, 11.250000000000014`}]}, {{7.5, 
+                    33.75}, 
+                    Offset[{2.5, 0.}, {7.5, 33.75}]}, {{7.5, 45.}, 
+                    Offset[{2.5, 0.}, {7.5, 45.}]}, {{7.5, 56.25}, 
+                    Offset[{2.5, 0.}, {7.5, 56.25}]}, {{7.5, 78.75}, 
+                    Offset[{2.5, 0.}, {7.5, 78.75}]}, {{7.5, 90.}, 
+                    Offset[{2.5, 0.}, {7.5, 90.}]}, {{7.5, 101.25}, 
+                    Offset[{2.5, 0.}, {7.5, 101.25}]}}], {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]]}, StripOnInput -> False]}, 
+                    StyleBox[
+                    StyleBox[{{
+                    StyleBox[{
+                    InsetBox[
+                    FormBox["0.`", TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -112.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.2\"", ShowStringCharacters -> False], 0.2, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -67.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.4\"", ShowStringCharacters -> False], 0.4, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -22.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.6\"", ShowStringCharacters -> False], 0.6, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 22.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.8\"", ShowStringCharacters -> False], 0.8, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 67.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"1.0\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 112.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}]}, {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]], {
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False], 
+                    
+                    StyleBox[{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}}, {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]], {
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False]}, {}}, {{
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False], {"GraphicsLabel"}, 
+                    StripOnInput -> False]}, {"GraphicsTicks"}, StripOnInput -> 
+                   False], {{
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]], 
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]]}}, StripOnInput -> False]}, {
+                "GraphicsAxes"}, StripOnInput -> False]}, PlotRangePadding -> 
+              Scaled[0.02], PlotRange -> All, Frame -> True, 
+              FrameTicks -> {{False, False}, {True, False}}, FrameStyle -> 
+              Opacity[0], FrameTicksStyle -> Opacity[0], 
+              ImageSize -> {Automatic, 225}, BaseStyle -> {}], Alignment -> 
+             Left, AppearanceElements -> None, 
+             ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
+             "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
+           FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
+           False], TraditionalForm]}, "BarLegend", DisplayFunction -> (#& ), 
+        InterpretationFunction :> (RowBox[{"BarLegend", "[", 
+           RowBox[{
+             RowBox[{"{", 
+               RowBox[{
+                 RowBox[{
+                   RowBox[{"Blend", "[", 
+                    RowBox[{"\"WL13DefaultDensityGradient\"", ",", "#1"}], 
+                    "]"}], "&"}], ",", 
+                 RowBox[{"{", 
+                   RowBox[{"0.`", ",", "1.`"}], "}"}]}], "}"}], ",", 
+             RowBox[{"LabelStyle", "\[Rule]", 
+               RowBox[{"{", "}"}]}], ",", 
+             RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}], ",", 
+             RowBox[{"LegendMarkerSize", "\[Rule]", "225"}], ",", 
+             RowBox[{"ScalingFunctions", "\[Rule]", 
+               RowBox[{"{", 
+                 RowBox[{"Identity", ",", "Identity"}], "}"}]}], ",", 
+             RowBox[{"Charting`AxisLabel", "\[Rule]", "None"}], ",", 
+             RowBox[{"Charting`TickSide", "\[Rule]", "Right"}], ",", 
+             RowBox[{"ColorFunctionScaling", "\[Rule]", "True"}]}], "]"}]& )],
+        TraditionalForm], TraditionalForm]}, "Legended", 
+    DisplayFunction -> (GridBox[{{
+        TagBox[
+         ItemBox[
+          PaneBox[
+           TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+           BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+         "SkipImageSizeLevel"], 
+        ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+      AutoDelete -> False, GridBoxItemSize -> Automatic, 
+      BaselinePosition -> {1, 1}]& ), 
+    InterpretationFunction -> (RowBox[{"Legended", "[", 
+       RowBox[{#, ",", 
+         RowBox[{"Placed", "[", 
+           RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> True], 
+   RotationBox[
+   "\"\\!\\(\\*SubscriptBox[\\(\[Alpha]\\), \
+\\(12\\)]\\)/\\!\\(\\*SubscriptBox[\\(\[Alpha]\\), \\(21\\)]\\) (relative \
+warfare strength)\"", BoxRotation -> 1.5707963267948966`], 
+   "\"\\!\\(\\*SubscriptBox[\\(k\\), \
+\\(12\\)]\\)/\\!\\(\\*SubscriptBox[\\(k\\), \\(21\\)]\\)\""},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"], 
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}, {"", 
+      ItemBox[#3, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {1, 2}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", 
+         RowBox[{#2, ",", #3}], "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"Left", ",", "Bottom"}], "}"}], ",", 
+       RowBox[{"{", "}"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{
+  3.907290997055592*^9, 3.907291078414633*^9, {3.90729112349712*^9, 
+   3.907291149330563*^9}, {3.90729118088477*^9, 3.907291195534778*^9}},
+ CellLabel->
+  "Out[211]=",ExpressionUUID->"d03500eb-4a66-4d94-952a-25f1bbc676da"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Generate", " ", "the", " ", "heatmap"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"Labeled", "[", 
+   RowBox[{
+    RowBox[{"ListDensityPlot", "[", 
+     RowBox[{"results", ",", 
+      RowBox[{"PlotLegends", "->", 
+       RowBox[{"BarLegend", "[", 
+        RowBox[{"Automatic", ",", 
+         RowBox[{"LegendLabel", "->", 
+          RowBox[{"Rotate", "[", 
+           RowBox[{
+           "\"\<Fraction \!\(\*SubscriptBox[\(N\), \(1\)]\) Dominant\>\"", 
+            ",", 
+            RowBox[{"90", "Degree"}]}], "]"}]}]}], "]"}]}], ",", 
+      RowBox[{
+      "PlotLabel", "->", "\"\<Fraction of Length where N1 is Dominant\>\""}], 
+      ",", 
+      RowBox[{"ScalingFunctions", "->", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Log\>\"", ",", "\"\<Log\>\""}], "}"}]}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Rotate", "[", 
+       RowBox[{
+       "\"\<\!\(\*SubscriptBox[\(\[Alpha]\), \(21\)]\)/\!\(\*SubscriptBox[\(\
+\[Alpha]\), \(12\)]\)\>\"", ",", 
+        RowBox[{"90", " ", "Degree"}]}], "]"}], ",", 
+      "\"\<\!\(\*SubscriptBox[\(k\), \(12\)]\)/\!\(\*SubscriptBox[\(k\), \(21\
+\)]\)\>\""}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"Left", ",", "Bottom"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.907291408729707*^9, 3.907291470828422*^9}, {
+  3.907291525577077*^9, 3.907291598028558*^9}, {3.907291702897338*^9, 
+  3.907291705533578*^9}},
+ CellLabel->
+  "In[224]:=",ExpressionUUID->"934332b2-d3b9-4b29-bfb9-6fdd3a068900"],
+
+Cell[BoxData[
+ TemplateBox[{
+   TemplateBox[{
+     GraphicsBox[
+      GraphicsComplexBox[CompressedData["
+1:eJztlz1rVFEQhvdql9xCUTstVGwtNI3VXK21iU2wDIhYCZZ2dlqIRhsRkfwB
+9xcEchGsFUEw2IjFFn4gQRjJFipy8wyc9zBs6Ra7zfIu57xzz3125sycXL+1
+ev3AaDR61IxG/76zz/LBl3e+PNk19PkH339d7PdCr107N7596o+V65sOvTTs
+3878rx69Ox2vfYr9z8dLNw6d+Cp+VfzwWx32p/4bK0d2Xt17H/tf736Ynnnz
+WZ8/9j8b4od+OOxP/ffGL47fP/ZWz9+jWzn/fvzQ02G/+G9u/bgw/X3p7CR+
+R/M+0PBAw6Nc33RoeGT+8EDDY0b88INH5g8PNDzk+WM/PNDwyPzhIefv0a2c
+Hx5oeJT+m1vLwhHN+0DDAw2Pcn3ToZdKn8ofHmh4zIgffvDI/OGBhoc8f+yH
+BxoemT885Pw9upXzwwMNj9Kf/HDh7/L/dMkPl/xwyQ+X/Kj9y/xwyY80fviV
++VH7l/nhkh8u+eGSHy75UfuX+eGSHy754ZIfLvnhwmNiZbyJle9jYlKvTOqV
+Sb0yqVeVv9Qrk3qVxQ8/qVeVv9Qrk3plUq9M6pVJvar8pV5ZyWNiUq9M6pVJ
+vTJ4jJLP4j7/P/f5lafb307/3Inf0bwPNDzQ8CjXNx0aHpk/PNDwmBE//OCR
++cMDDQ95/tgPDzQ8Mn94yPl7dCvnhwcaHqX/or+a0/6qqhP6Lf2VSX8V9wda
++qvKX/ork/4qix9+0l9V/tJfmfRXJv2VSX9l0l9V/tJfxf2Blv7KpL8y6a/i
+/rg85EvEQ7MODQ80PMr1TYeGR+YPDzQ8ZsQPP3hk/vBAw0OeP/bDAw2PzB8e
+cv4e3cr54YGGR+m/uM/R83KfP/64cnj95rv4Hc37QMMDDY9yfdOh4ZH5wwMN
+jxnxww8emT880PCQ54/98EDDI/OHh5y/R7dyfnig4VH6xzwo/bVL/+8yf7jM
+Hx71Ci3zYOUv86DMH2n88JN5sPKXeVDmD5f5w2X+cJk/an+ZB2X+cJk/XOYP
+l/nDreSxmAfnZR7cGPIl4qGjT9nX8EDDo1zfdGh4ZP7wQMNjRvzwg0fmDw80
+POT5Yz880PDI/OEh5+/RrZwfHmh4lP6L+xw9L/f5X5Mk0q0=
+       "], {{{
+          EdgeForm[], 
+          GrayLevel[0.8], 
+          GraphicsGroupBox[{
+            PolygonBox[CompressedData["
+1:eJxNl/tvz1cYx89nRrZsmUtaRV3SrouWVNspGtamWrGRYWYh24i6lQraaDUu
+/T+wLRPLjLj9Hy4Ti2VYNoQhhLiF2W97Xs7rG5K+e+7P/bzP51u1vvfLHW+l
+lIaKlIZFOzEwKTAr0BO4HdiS8lpX7FkX2B79W4H7gXedR8bbgbHK2RjtCMaB
+iiKvDU95X5d7DgYOBMpjvD/a+sCEwJPAQOBBoD9wL7At8EPgaGBa4MdAVWBq
+oCWwPPBZoMF9UwI/0YbsY9HuUe6LwM+eq9fO3sBodaBrp/7hZ3dgXGBt7Im/
+NDn+nYz2cOBCYGtgr3prnEfWCGU3asdHgTGB9zlT5DHz0wMfBCpjrqrIespS
+1oUt3dF5RH4CNwJn9J39R6IdX+SY4POuwNPAXcfTjMNeY9mbcpyJcZOxrwxU
+G0vk1hqXme6bHJhtTRzWxzrPHbBelgSarZlDKds10bg36eN3ypqkXS3aVq1O
+zv2ijjrlzXO9SXsWq69Z/VPNJXYT57bAIvQR3yLnjZpoNT+Vnq3WxlrPtupX
+gzagf4byGs1dmXkiRwv0Cbuor1P4VORzyOoIzA20a+NsfZ+jPPw/6p4q7UDf
+CfU3GJsW9VAnx/SfOHzufJu2TTIuB7Vpgvvq9AubTloTDdqxTLu4N+uM0yzj
+U+KA2c7VGjPyUa9P7Y7nu/6V/Xme4exSx8hcor9T9Xm1ujtTrkvqc0D5yF5o
+HLF9pT7PdL5WXchbr6xF6lqiLcRqTcq56jC+dY7bjF+98maqc0Xga/W1GpNP
+PduRXvNLiznstI+8VdrQaNuprjWuNWnTAnXNVd/ZwOaUeWaJsVtq/JbZX2bO
+vtDedu3Ez2+MRad6V6sTXRvcz961gW/1Y6V+dTjXpl2rlLNcvxZ6jtjDw5cD
+vxmHdcpZr95V6lvs/hX6OF8dXercrs/4O5gyrz1L+Z35J+W3hreC94G3Zn1g
+Q5HfjvOBX1N+lwa9331y5n/Rv5ky18HJcCBcW5Ey3+4MbJNb/0iZ43enzK+P
+sSvai/q5TTnU5aWU3w3eD+rznPnCh6uBfSnzLvLg60fKv+hcvz7f98x2Y/hI
+/ey5ouw9ysJ+3paXKfP5PmPVF/jdmOErPlOHjebtjDI3pXzfeRu483Av3MDb
+fEm/0HddefsE8h8q/4xyhmzRdzpQ5ls91VjCh3A3bzjvwQNj96/6yn3rbwQW
+RL8+8L028V1w0P4kW9bgygPaDBcd1ZeaIvM9bx+8zbcH78xI23JtgasOKQM+
+5c3mXRmrnDo5G+6GW4/rT5Xy653jzh7TbzjnSHr9Tn1YZLkTfYerfYdPmY8T
+7mEvb9FpZR1XPjHcYi2dc36/8eVsbZHPk0c457D28s5UqAd9NX5jMH71PaEu
+dDZp+37z/Kd19NI8cy+oxRlFrs3z2oQ9Z52n3+M8643ILfI9pJapb2Q0F5kf
+qHvq+ZI11qAMZM0t8t34y/qiJurNx3h93evZa4G/A58UWV6fNYofLUWu3U7l
+7VYm+ufF3CzPzLHeZ+jnLG1o9twedVzxbL/2c6+5hxe04+Mi94eMH3GEM+CO
+e+rerU/4U/LvkjZc069ryryuL1cdI/+q8RhSfslP+o/UBX+RM/gS3uMblW9p
+uOVOylxZ4tHN5oz+Lcfc4U3aetv965TT7Z47rpFz7jL3uKfIfLrVuMCPO40V
+dm33DsKxz1O2k+/sHdH2F/k8cgaKzKWMWdulPxXWY5/x3aacEkfSPjfm+Lq5
+yLlifM+5x+bvgfKfGGfi2qoe9L00dsQQ/nym7kF9Iy9P1fvcmD3RlxfGg1ze
+tU+7Ubn7lMU9n+I36KBv06vvet+saF79RqDm+Z0Aj7LGPBwGr/E7aZjj0m8r
++LLEqWPlTt7FccXrNdoSt46Ta4fe8BWd8CB6q+WuSvNH+47zb3LqRG1inW9g
+9sB976Usa4o55L0d45g+fFopp5a49bhnR6V8fqT62Ae/wBUN8hycViPvY/do
+x7ToI77oQuc4x/Th8uPGtMxxmXwKr5anzDkntWWya6P0p+6NOfYyP93clcmv
+05XJHW3znmLTNO1t1J8GubLEnfDZHPmJ+wMPNctPcBAcNT/l7zq+oeAM9nfI
+XXBLu3noNl9w2Hxlt8olcMqNlO3CvnbP1stHyGMPHHrdO7LAM23W7Vp95r51
+WQPM3fRudMkdcEzpW406pR1uzTLP+m3l3PfcBvffcU+X+8ZaF9xh7tVd72O3
+NYm/cCM2E/vN2jVSm3Zqd6/nn5q/Huu1wrvXKyc89F7AOd3GtcwxfbjtsbaP
+dEwfPuixZga8Uz3Wyw7neYsum98+Y0l9bnU8RnvL0mubsRcu6VdHufLhmo3q
+GdC3Xd47znFmlzK464Pq+B/8qtX2
+             "]]}]}, {}, {}, {}, {}}}, VertexColors -> {
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.893085371302577, 0.056778004648400215`, 0.4149057985371798], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7430940102371307, 0.26249554213689397`, 0.4781789054149535], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.893085371302577, 0.056778004648400215`, 0.4149057985371798], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.807335653128283, 0.1607715943791498, 0.5361769832735732], 
+         
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.6455001304209563, 0.3919447067107032, 0.3868641018322946], 
+         LABColor[
+         0.9204894166759601, 0.027512622727691033`, 0.35134114790012383`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.35118470910426086`, 0.2453332943303944, -0.17341624095721286`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.3911979621490215, 0.29715070854832815`, -0.05602643070325658], 
+         LABColor[0.807335653128283, 0.1607715943791498, 0.5361769832735732], 
+         
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[
+         0.9204894166759601, 0.027512622727691033`, 0.35134114790012383`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[0.6455001304209563, 0.3919447067107032, 0.3868641018322946], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.5071655208030841, 0.41029854572373553`, 0.2363264517572213], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.6788523673459784, 0.3642194898946381, 0.42018082755633374`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7752148316827068, 0.21163356825802193`, 0.5071779443442633], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[0.8382772805558109, 0.1153087684898185, 0.5420350998112917], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.7109731887915546, 0.3133575160157661, 0.44917986648564356`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.35118470910426086`, 0.2453332943303944, -0.17341624095721286`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.2711582030147396, 0.14169846589452695`, -0.40819586146512543`], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119], 
+         LABColor[
+         0.9752975074227263, -0.03101814111372725, 0.2242118466260119]}], {
+      DisplayFunction -> Identity, AspectRatio -> 1, 
+       AxesOrigin -> {Automatic, Automatic}, DisplayFunction :> Identity, 
+       Frame -> True, FrameLabel -> {None, None}, FrameTicks -> {{
+          Charting`ScaledTicks[
+          "Log", {Log, Exp}, "Nice", WorkingPrecision -> 15.954589770191003`, 
+           RotateLabel -> 0], 
+          Charting`ScaledFrameTicks[{Log, Exp}]}, {
+          Charting`ScaledTicks[
+          "Log", {Log, Exp}, "Nice", WorkingPrecision -> 15.954589770191003`, 
+           RotateLabel -> 0], 
+          Charting`ScaledFrameTicks[{Log, Exp}]}}, GridLines -> {None, None}, 
+       GridLinesStyle -> Directive[
+         GrayLevel[0.5, 0.4]], 
+       Method -> {
+        "DefaultBoundaryStyle" -> Automatic, "DefaultColorFunction" -> 
+         "WL13DefaultDensityGradient", 
+         "DefaultGraphicsInteraction" -> {
+          "Version" -> 1.2, "TrackMousePosition" -> {True, False}, 
+           "Effects" -> {
+            "Highlight" -> {"ratio" -> 2}, "HighlightPoint" -> {"ratio" -> 2},
+              "Droplines" -> {
+              "freeformCursorMode" -> True, 
+               "placement" -> {"x" -> "All", "y" -> "None"}}}}, 
+         "GridLinesInFront" -> True}, PlotLabel -> 
+       FormBox["\"Fraction of Length where N1 is Dominant\"", 
+         TraditionalForm], 
+       PlotRange -> {{-1.3862943611198906`, 
+        1.3862943611198906`}, {-2.1972245773362196`, 2.1972245773362196`}}, 
+       PlotRangeClipping -> True, PlotRangePadding -> {{
+          Scaled[0.02], 
+          Scaled[0.02]}, {
+          Scaled[0.02], 
+          Scaled[0.02]}}, Ticks -> {
+         Charting`ScaledTicks[
+         "Log", {Log, Exp}, "Nice", WorkingPrecision -> 15.954589770191003`, 
+          RotateLabel -> 0], 
+         Charting`ScaledTicks[
+         "Log", {Log, Exp}, "Nice", WorkingPrecision -> 15.954589770191003`, 
+          RotateLabel -> 0]}}], 
+     FormBox[
+      FormBox[
+       TemplateBox[{
+         FormBox[
+          StyleBox[
+           StyleBox[
+            PaneBox[
+             TagBox[
+              GridBox[{{
+                 StyleBox[
+                  RotationBox[
+                  "\"Fraction \\!\\(\\*SubscriptBox[\\(N\\), \\(1\\)]\\) \
+Dominant\"", BoxRotation -> 1.5707963267948966`], {FontFamily -> "Arial"}, 
+                  Background -> Automatic, StripOnInput -> False]}, {
+                 GraphicsBox[{
+                   RasterBox[CompressedData["
+1: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
+PyHA/wBtF2Z2
+                    "], {{
+                    Rational[-15, 2], 
+                    Rational[-225, 2]}, {
+                    Rational[15, 2], 
+                    Rational[225, 2]}}], {Antialiasing -> False, 
+                    AbsoluteThickness[0.1], 
+                    Directive[
+                    Opacity[0.3], 
+                    GrayLevel[0]], 
+                    LineBox[
+                    NCache[{{
+                    Rational[15, 2], 
+                    Rational[-225, 2]}, {
+                    Rational[-15, 2], 
+                    Rational[-225, 2]}, {
+                    Rational[-15, 2], 
+                    Rational[225, 2]}, {
+                    Rational[15, 2], 
+                    Rational[225, 2]}, {
+                    Rational[15, 2], 
+                    Rational[-225, 2]}}, {{
+                    7.5, -112.5}, {-7.5, -112.5}, {-7.5, 112.5}, {7.5, 
+                    112.5}, {7.5, -112.5}}]]}, {
+                    CapForm[None], {}}, 
+                   StyleBox[{Antialiasing -> False, 
+                    StyleBox[
+                    LineBox[{{7.5, -112.5}, {7.5, 112.5}}], {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    Opacity[0.3], 
+                    GrayLevel[0]]}, StripOnInput -> False], 
+                    StyleBox[
+                    StyleBox[{{
+                    StyleBox[
+                    LineBox[{{{7.5, -112.5}, 
+                    Offset[{4., 0}, {7.5, -112.5}]}, {{7.5, -67.5}, 
+                    Offset[{4., 0}, {7.5, -67.5}]}, {{7.5, -22.5}, 
+                    Offset[{4., 0}, {7.5, -22.5}]}, {{7.5, 22.5}, 
+                    Offset[{4., 0}, {7.5, 22.5}]}, {{7.5, 67.5}, 
+                    Offset[{4., 0}, {7.5, 67.5}]}, {{7.5, 112.5}, 
+                    Offset[{4., 0}, {7.5, 112.5}]}}], {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]]}, StripOnInput -> False], 
+                    StyleBox[
+                    LineBox[{{{7.5, -101.25}, 
+                    Offset[{2.5, 0.}, {7.5, -101.25}]}, {{7.5, -90.}, 
+                    Offset[{2.5, 0.}, {7.5, -90.}]}, {{7.5, -78.75}, 
+                    Offset[{2.5, 0.}, {7.5, -78.75}]}, {{7.5, -56.25}, 
+                    Offset[{2.5, 0.}, {7.5, -56.25}]}, {{7.5, -45.}, 
+                    Offset[{2.5, 0.}, {7.5, -45.}]}, {{7.5, -33.75}, 
+                    Offset[{2.5, 0.}, {7.5, -33.75}]}, {{7.5, -11.25}, 
+                    Offset[{2.5, 0.}, {7.5, -11.25}]}, {{7.5, 0.}, 
+                    Offset[{2.5, 0.}, {7.5, 0.}]}, {{7.5, 
+                    11.250000000000014`}, 
+                    Offset[{2.5, 0.}, {7.5, 11.250000000000014`}]}, {{7.5, 
+                    33.75}, 
+                    Offset[{2.5, 0.}, {7.5, 33.75}]}, {{7.5, 45.}, 
+                    Offset[{2.5, 0.}, {7.5, 45.}]}, {{7.5, 56.25}, 
+                    Offset[{2.5, 0.}, {7.5, 56.25}]}, {{7.5, 78.75}, 
+                    Offset[{2.5, 0.}, {7.5, 78.75}]}, {{7.5, 90.}, 
+                    Offset[{2.5, 0.}, {7.5, 90.}]}, {{7.5, 101.25}, 
+                    Offset[{2.5, 0.}, {7.5, 101.25}]}}], {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]]}, StripOnInput -> False]}, 
+                    StyleBox[
+                    StyleBox[{{
+                    StyleBox[{
+                    InsetBox[
+                    FormBox["0.`", TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -112.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.2\"", ShowStringCharacters -> False], 0.2, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -67.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.4\"", ShowStringCharacters -> False], 0.4, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, -22.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.6\"", ShowStringCharacters -> False], 0.6, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 22.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"0.8\"", ShowStringCharacters -> False], 0.8, 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 67.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}], 
+                    InsetBox[
+                    FormBox[
+                    TagBox[
+                    InterpretationBox[
+                    StyleBox["\"1.0\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], NumberForm[#, {
+                    DirectedInfinity[1], 1}]& ], TraditionalForm], 
+                    Offset[{7., 0.}, {7.5, 112.5}], 
+                    ImageScaled[{0, 0.5}], Automatic, {1, 0}]}, {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]], {
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False], 
+                    
+                    StyleBox[{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}}, {
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]], {
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False]}, {}}, {{
+                    Directive[
+                    Opacity[1]], 
+                    Directive[
+                    Opacity[1]]}}, StripOnInput -> False], {"GraphicsLabel"}, 
+                    StripOnInput -> False]}, {"GraphicsTicks"}, StripOnInput -> 
+                    False], {{
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4]], 
+                    Directive[
+                    AbsoluteThickness[0.2], 
+                    GrayLevel[0.4], 
+                    Opacity[0.3]]}}, StripOnInput -> False]}, {
+                    "GraphicsAxes"}, StripOnInput -> False]}, 
+                  PlotRangePadding -> Scaled[0.02], PlotRange -> All, Frame -> 
+                  True, FrameTicks -> {{False, False}, {True, False}}, 
+                  FrameStyle -> Opacity[0], FrameTicksStyle -> Opacity[0], 
+                  ImageSize -> {Automatic, 225}, BaseStyle -> {}]}}, 
+               GridBoxAlignment -> {"Columns" -> {{Center}}}, AutoDelete -> 
+               False, GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               GridBoxSpacings -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+              "Grid"], Alignment -> Left, AppearanceElements -> None, 
+             ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
+             "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
+           FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
+           False], TraditionalForm]}, "BarLegend", DisplayFunction -> (#& ), 
+        InterpretationFunction :> (RowBox[{"BarLegend", "[", 
+           RowBox[{
+             RowBox[{"{", 
+               RowBox[{
+                 RowBox[{
+                   RowBox[{"Blend", "[", 
+                    RowBox[{"\"WL13DefaultDensityGradient\"", ",", "#1"}], 
+                    "]"}], "&"}], ",", 
+                 RowBox[{"{", 
+                   RowBox[{"0.`", ",", "1.`"}], "}"}]}], "}"}], ",", 
+             RowBox[{"LabelStyle", "\[Rule]", 
+               RowBox[{"{", "}"}]}], ",", 
+             RowBox[{"LegendLabel", "\[Rule]", 
+               RotationBox[
+               "\"Fraction \\!\\(\\*SubscriptBox[\\(N\\), \\(1\\)]\\) \
+Dominant\"", BoxRotation -> 1.5707963267948966`]}], ",", 
+             RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}], ",", 
+             RowBox[{"LegendMarkerSize", "\[Rule]", "225"}], ",", 
+             RowBox[{"ScalingFunctions", "\[Rule]", 
+               RowBox[{"{", 
+                 RowBox[{"Identity", ",", "Identity"}], "}"}]}], ",", 
+             RowBox[{"Charting`AxisLabel", "\[Rule]", "None"}], ",", 
+             RowBox[{"Charting`TickSide", "\[Rule]", "Right"}], ",", 
+             RowBox[{"ColorFunctionScaling", "\[Rule]", "True"}]}], "]"}]& )],
+        TraditionalForm], TraditionalForm]}, "Legended", 
+    DisplayFunction -> (GridBox[{{
+        TagBox[
+         ItemBox[
+          PaneBox[
+           TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+           BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+         "SkipImageSizeLevel"], 
+        ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
+      GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+      AutoDelete -> False, GridBoxItemSize -> Automatic, 
+      BaselinePosition -> {1, 1}]& ), 
+    InterpretationFunction -> (RowBox[{"Legended", "[", 
+       RowBox[{#, ",", 
+         RowBox[{"Placed", "[", 
+           RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> True], 
+   RotationBox[
+   "\"\\!\\(\\*SubscriptBox[\\(\[Alpha]\\), \
+\\(21\\)]\\)/\\!\\(\\*SubscriptBox[\\(\[Alpha]\\), \\(12\\)]\\)\"", 
+    BoxRotation -> 1.5707963267948966`], 
+   "\"\\!\\(\\*SubscriptBox[\\(k\\), \
+\\(12\\)]\\)/\\!\\(\\*SubscriptBox[\\(k\\), \\(21\\)]\\)\""},
+  "Labeled",
+  DisplayFunction->(GridBox[{{
+      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"], 
+      TagBox[
+       ItemBox[
+        PaneBox[
+         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
+         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
+       "SkipImageSizeLevel"]}, {"", 
+      ItemBox[#3, DefaultBaseStyle -> "LabeledLabel"]}}, 
+    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
+    AutoDelete -> False, 
+    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+    BaselinePosition -> {1, 2}]& ),
+  InterpretationFunction->(RowBox[{"Labeled", "[", 
+     RowBox[{#, ",", 
+       RowBox[{"{", 
+         RowBox[{#2, ",", #3}], "}"}], ",", 
+       RowBox[{"{", 
+         RowBox[{"Left", ",", "Bottom"}], "}"}], ",", 
+       RowBox[{"{", "}"}]}], "]"}]& )]], "Output",
+ CellChangeTimes->{{3.907291381067781*^9, 3.9072914159771214`*^9}, 
+   3.907291467788211*^9, {3.907291510443469*^9, 3.9072915993071423`*^9}, 
+   3.907291762637186*^9},
+ CellLabel->
+  "Out[224]=",ExpressionUUID->"5e72fbfd-72f1-4b42-8fac-874ee6466bc7"]
+}, Open  ]]
+},
+WindowSize->{1440, 762},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.3 for Linux x86 (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"caca5de7-928b-486d-9208-9b23ec6cef48"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 25966, 598, 1502, "Input",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
+Cell[CellGroupData[{
+Cell[26549, 622, 229, 4, 29, "Input",ExpressionUUID->"c823d237-485d-41be-a764-e19d03203786"],
+Cell[26781, 628, 59302, 1228, 414, "Output",ExpressionUUID->"d03500eb-4a66-4d94-952a-25f1bbc676da"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[86120, 1861, 1518, 39, 74, "Input",ExpressionUUID->"934332b2-d3b9-4b29-bfb9-6fdd3a068900"],
+Cell[87641, 1902, 60670, 1254, 406, "Output",ExpressionUUID->"5e72fbfd-72f1-4b42-8fac-874ee6466bc7"]
+}, Open  ]]
+}
+]
+*)
+
