@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     28132,        764]
-NotebookOptionsPosition[     27650,        747]
-NotebookOutlinePosition[     28045,        763]
-CellTagsIndexPosition[     28002,        760]
+NotebookDataLength[     27405,        756]
+NotebookOptionsPosition[     26923,        739]
+NotebookOutlinePosition[     27318,        755]
+CellTagsIndexPosition[     27275,        752]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,10 +25,10 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";"}], "  ", 
   RowBox[{"(*", 
-   RowBox[{"Clear", " ", "all", " ", "variables"}], "*)"}], "\n", 
-  "\[IndentingNewLine]", 
+   RowBox[{"Clear", " ", "all", " ", "variables"}], "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{"(*", 
-   RowBox[{"Define", " ", "parameters"}], "*)"}]}], "\[IndentingNewLine]", 
+   RowBox[{"Define", " ", "parameters"}], "*)"}]}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"parameters", "=", 
@@ -44,15 +44,15 @@ Cell[BoxData[{
       RowBox[{"L", "->", "100"}], ",", 
       RowBox[{"N10", "->", "1"}], ",", 
       RowBox[{"N20", "->", "1"}], ",", 
-      RowBox[{"TOTALTIME", "->", "50"}], ",", 
+      RowBox[{"TOTALTIME", "->", "100"}], ",", 
       RowBox[{"n", "->", "4"}], ",", 
       RowBox[{"Y1", "->", "2"}], ",", 
       RowBox[{"Y2", "->", "1"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
-  "\[IndentingNewLine]", 
+  "\n", 
   RowBox[{"(*", 
    RowBox[{
    "Manually", " ", "specify", " ", "the", " ", "k", " ", "and", " ", "alpha",
-     " ", "matrix"}], "*)"}]}], "\n", 
+     " ", "matrix"}], "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"kMatrix", "=", 
    RowBox[{"{", 
@@ -68,10 +68,10 @@ Cell[BoxData[{
     RowBox[{"{", 
      RowBox[{
       RowBox[{"{", 
-       RowBox[{"1.0", ",", "0.1"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"0.0", ",", "1"}], "}"}], ",", "\[IndentingNewLine]", 
       "\t\t      ", 
       RowBox[{"{", 
-       RowBox[{"4.0", ",", "1.0"}], "}"}]}], "}"}]}], ";"}], 
+       RowBox[{"4.0", ",", "0.0"}], "}"}]}], "}"}]}], ";"}], 
   "\[IndentingNewLine]", "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
@@ -122,13 +122,14 @@ Cell[BoxData[{
        RowBox[{"(", 
         RowBox[{"1", "-", 
          RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}], "/.", " ", 
-     "parameters"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     "parameters"}]}], ";"}], "\[IndentingNewLine]", "\n", 
   RowBox[{"(*", 
    RowBox[{
     RowBox[{"Take", " ", "the", " ", "derivatives", " ", "at", " ", "x"}], 
     "=", 
     RowBox[{
-     RowBox[{"0", " ", "and", " ", "x"}], "=", "L"}]}], "*)"}]}], "\n", 
+     RowBox[{"0", " ", "and", " ", "x"}], "=", "L"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"dR1Init0", "[", "C1_", "]"}], "=", 
@@ -167,8 +168,8 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"R2Init", "[", 
          RowBox[{"x", ",", "C2"}], "]"}], ",", "x"}], "]"}], "/.", " ", 
-      RowBox[{"x", "->", "L"}]}], "/.", " ", "parameters"}]}], ";"}], 
-  "\[IndentingNewLine]", "\n", 
+      RowBox[{"x", "->", "L"}]}], "/.", " ", "parameters"}]}], ";"}], "\n", 
+  "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
     RowBox[{
@@ -394,7 +395,7 @@ Cell[BoxData[{
             RowBox[{"t", ",", "x"}], "]"}], ",", 
            RowBox[{"R2", "[", 
             RowBox[{"t", ",", "x"}], "]"}]}], "]"}]}]}]}], "}"}], "/.", " ", 
-     "parameters"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+     "parameters"}]}], ";"}], "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{"(*", 
    RowBox[{"Modified", " ", "Neumann", " ", "boundary", " ", "conditions"}], 
@@ -514,7 +515,7 @@ Cell[BoxData[{
               RowBox[{"t", ",", "L"}], "]"}], ",", 
              RowBox[{"R2", "[", 
               RowBox[{"t", ",", "L"}], "]"}]}], "]"}]}], ")"}]}]}]}], "}"}], "/.",
-      " ", "parameters"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+      " ", "parameters"}]}], ";"}], "\n", "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
    "Initial", " ", "conditions", " ", "with", " ", "solved", " ", "C1", " ", 
@@ -553,7 +554,7 @@ Cell[BoxData[{
           RowBox[{"(", 
            RowBox[{"1", "-", 
             RowBox[{"x", "/", "L"}]}], ")"}], "^", "n"}]}]}], "/.", " ", 
-       "parameters"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+       "parameters"}]}], "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
    "Solve", " ", "the", " ", "PDE", " ", "system", " ", "numerically"}], 
@@ -613,7 +614,7 @@ Cell[BoxData[{
              RowBox[{
              "\"\<Position x\>\"", ",", "\"\<Species Abundances\>\""}], 
              "}"}]}], "}"}]}], ",", 
-         RowBox[{"ImageSize", "->", "Medium"}]}], "]"}], ",", 
+         RowBox[{"ImageSize", "->", "Small"}]}], "]"}], ",", 
        RowBox[{"Plot", "[", 
         RowBox[{
          RowBox[{"Evaluate", "[", 
@@ -645,8 +646,7 @@ Cell[BoxData[{
              RowBox[{
              "\"\<Position x\>\"", ",", "\"\<Resource Concentrations\>\""}], 
              "}"}]}], "}"}]}], ",", 
-         RowBox[{"ImageSize", "->", "Medium"}]}], "]"}]}], "}"}], "]"}], ",", 
-    
+         RowBox[{"ImageSize", "->", "Small"}]}], "]"}]}], "}"}], "]"}], ",", 
     RowBox[{"{", 
      RowBox[{"t", ",", "0", ",", 
       RowBox[{"TOTALTIME", "/.", " ", "parameters"}]}], "}"}]}], 
@@ -675,18 +675,21 @@ Cell[BoxData[{
    3.907495371768382*^9}, {3.907495414447036*^9, 3.907495541106436*^9}, {
    3.9074955867800493`*^9, 3.9074955877366467`*^9}, {3.907495619706871*^9, 
    3.907495636811214*^9}, {3.907495783574345*^9, 3.9074957838624783`*^9}, {
-   3.907497609649454*^9, 3.907497617764244*^9}},
- CellLabel->"In[49]:=",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
+   3.907497609649454*^9, 3.907497617764244*^9}, {3.907559449251742*^9, 
+   3.907559469684849*^9}, {3.907559526341876*^9, 3.9075596270985928`*^9}, {
+   3.907559672494741*^9, 3.907559883401547*^9}},
+ CellLabel->
+  "In[627]:=",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`t$$ = 50., Typeset`show$$ = True, 
+   DynamicModuleBox[{$CellContext`t$$ = 100., Typeset`show$$ = True, 
     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
     Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
     "\"untitled\"", Typeset`specs$$ = {{
-      Hold[$CellContext`t$$], 0, 50}}, Typeset`size$$ = {
-    556., {315.41754150390625`, 322.58245849609375`}}, Typeset`update$$ = 0, 
+      Hold[$CellContext`t$$], 0, 100}}, Typeset`size$$ = {
+    225., {213.41754150390625`, 220.58245849609375`}}, Typeset`update$$ = 0, 
     Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`t$$ = 0}, 
@@ -705,7 +708,7 @@ Cell[BoxData[
            ReplaceAll[$CellContext`L/2, $CellContext`parameters]}, PlotRange -> 
           Full, PlotLegends -> {"N1(t, x)", "N2(t, x)"}, Frame -> True, 
           FrameLabel -> {{"Abundance", None}, {
-            "Position x", "Species Abundances"}}, ImageSize -> Medium], 
+            "Position x", "Species Abundances"}}, ImageSize -> Small], 
          Plot[
           Evaluate[
            ReplaceAll[{
@@ -715,10 +718,10 @@ Cell[BoxData[
            ReplaceAll[$CellContext`L/2, $CellContext`parameters]}, PlotRange -> 
           Full, PlotLegends -> {"R1(t, x)", "R2(t, x)"}, Frame -> True, 
           FrameLabel -> {{"Concentration", None}, {
-            "Position x", "Resource Concentrations"}}, ImageSize -> Medium]}],
-       "Specifications" :> {{$CellContext`t$$, 0, 50}}, "Options" :> {}, 
+            "Position x", "Resource Concentrations"}}, ImageSize -> Small]}], 
+      "Specifications" :> {{$CellContext`t$$, 0, 100}}, "Options" :> {}, 
       "DefaultOptions" :> {}],
-     ImageSizeCache->{610., {372., 379.}},
+     ImageSizeCache->{304., {270., 277.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -729,20 +732,9 @@ Cell[BoxData[
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{{3.906893950572405*^9, 3.906893970558557*^9}, {
-   3.906894190847575*^9, 3.906894215408968*^9}, {3.906894613834754*^9, 
-   3.906894622249773*^9}, {3.907041013210647*^9, 3.907041022934517*^9}, {
-   3.907041102718562*^9, 3.907041129752734*^9}, {3.9070435268109827`*^9, 
-   3.907043624527483*^9}, {3.90713068934197*^9, 3.907130793913158*^9}, {
-   3.907130843644857*^9, 3.907131037710215*^9}, {3.907131083634521*^9, 
-   3.9071311462163143`*^9}, 3.907131388924203*^9, {3.907131424142049*^9, 
-   3.907131496033434*^9}, 3.907285462539908*^9, {3.907285547200672*^9, 
-   3.9072856244248457`*^9}, {3.907495091190618*^9, 3.907495122368059*^9}, 
-   3.9074951563129797`*^9, {3.9074952170265913`*^9, 3.907495372390223*^9}, {
-   3.907495417851503*^9, 3.907495523628656*^9}, 3.9074955882913513`*^9, {
-   3.907495620798253*^9, 3.907495637147367*^9}, 3.907495784286951*^9, 
-   3.907497520333021*^9, {3.90749761081071*^9, 3.9074976180847588`*^9}},
- CellLabel->"Out[72]=",ExpressionUUID->"85fcc874-f2e0-4314-ae86-1835d316fe80"]
+ CellChangeTimes->{{3.9075597150379763`*^9, 3.907559884101955*^9}},
+ CellLabel->
+  "Out[650]=",ExpressionUUID->"3be8d8b1-0d01-43ba-a0bf-4c37d70cd295"]
 }, Open  ]]
 },
 WindowSize->{1440, 847},
@@ -763,8 +755,8 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 23514, 656, 1728, "Input",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
-Cell[24097, 680, 3537, 64, 774, "Output",ExpressionUUID->"85fcc874-f2e0-4314-ae86-1835d316fe80"]
+Cell[580, 22, 23662, 659, 1728, "Input",ExpressionUUID->"bc63137d-f8e6-4ce2-ace3-95bbdd4d0715"],
+Cell[24245, 683, 2662, 53, 570, "Output",ExpressionUUID->"3be8d8b1-0d01-43ba-a0bf-4c37d70cd295"]
 }, Open  ]]
 }
 ]
